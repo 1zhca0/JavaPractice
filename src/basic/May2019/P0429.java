@@ -5,19 +5,17 @@ import java.util.Map;
 
 public class P0429 {
 
-	/*
-	 * ¸ø¶¨Ò»¸öÊı×é, »ñÈ¡ÆäÖĞËùÓĞÊ××ÖÄ¸, ²¢¸ø³öÕâ¸öÊı×éÖĞÒÔÕâ¸öÊ××ÖÄ¸Îª¿ªÍ·µÄËùÓĞString¶ÔÏóµÄÆ´½Ó
-	 */	
 	public static Map<String,String> firstChar(String[] arr){
         
         Map<String,String> map = new HashMap<>();
         
         for(int i = 0; i < arr.length; i++){
-            //»ñÈ¡Ê××Ö·û
+            //è·å–é¦–å­—ç¬¦
             char c = arr[i].charAt(0);
             String s = "" + c;
-            //Èç¹ûÊ××Ö·û¼¯ºÏÖĞÃ»ÓĞ£¬Ö±½ÓÌí¼Ó,Èç¹ûÓĞ£¬Æ´½Ó×Ö·û´®ºóÌí¼Ó
+            //å¦‚æœé¦–å­—ç¬¦é›†åˆä¸­æ²¡æœ‰ï¼Œç›´æ¥æ·»åŠ ,å¦‚æœæœ‰ï¼Œæ‹¼æ¥å­—ç¬¦ä¸²åæ·»åŠ 
             if(!map.containsKey(s)){
+                //å‡‰é£å¤œæ­£å¥½ï¼Œæœˆä¸‹è°å®¶å¹´å°‘ï¼Œå¿µé©¬æ–°åŸï¼Œå¿½å¿†æ•…äººï¼ŒæœˆåŠæ¢¢ï¼Œäººåœ¨æ‰°ï¼Œæˆ‘æ­£æ¥ï¼Œä½ å¯å¥½?
                 map.put(s,arr[i]);
             } else {
                 String newStr = map.get(s) + arr[i];
