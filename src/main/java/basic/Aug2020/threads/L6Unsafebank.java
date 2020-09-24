@@ -1,13 +1,8 @@
 package basic.Aug2020.threads;
 
-import com.sun.tools.doclint.Entity;
-import lombok.SneakyThrows;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.sun.tools.doclint.Entity.or;
-
 
 public class L6Unsafebank {
 
@@ -63,14 +58,12 @@ class GetMoney implements Runnable{
         this.getMoney = getMoney;
     }
 
-    @SneakyThrows
     @Override
     public void run() {
         if (getMoney>account.money) {
             System.out.println("no enough money");
             return;
         }
-        Thread.sleep(1000);
         System.out.println(Thread.currentThread().getName() + " get : " + getMoney);
         account.money = account.money - getMoney;
         System.out.println(account.name + " Left money : " + account.money);
