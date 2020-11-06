@@ -3,17 +3,40 @@ package leetcode;
 //无重复字符的最长子串
 public class L3 {
     public static void main(String[] args) {
+
         String s = "abcabd";
-        int result = 0;
+        char flag;
+        int finalResult = 0;
+
+
         for (int i = 0; i < s.length(); i++) {
-        	System.out.println("---");
-        	char flag1 = s.charAt(i);
-    		System.out.println("第" + i + " 次循环， --> " + flag1);
-    		
-    		for (int j = i; j < s.length(); j++) {
-				
-			}
-    		
+            int result = 0;
+        	flag = s.charAt(i);
+
+            StringBuffer sb = new StringBuffer();
+            sb.append(s.charAt(i));
+            for (int j = i+1; j < s.length(); j++) {
+
+                if (!sb.toString().contains(Character.toString(s.charAt(j)))){
+                    sb.append(s.charAt(j));
+                    continue;
+                };
+                break;
+            }
+            result = sb.toString().length();
+            if (result >= finalResult) {
+                finalResult = result;
+            }
+            System.out.println(sb.toString() + " " + flag + " " + result + " " + finalResult);
         }
+
+        System.out.println(finalResult);
+    }
+}
+class L3_v2{
+    public static void main(String[] args) {
+        int i = 1;
+        i++;
+        System.out.println(i);
     }
 }
