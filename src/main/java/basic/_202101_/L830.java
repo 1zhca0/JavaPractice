@@ -1,9 +1,6 @@
 package basic._202101_;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @ProjectName: JavaPractice
@@ -15,8 +12,30 @@ import java.util.Map;
  * @Version: 1.0
  */
 public class L830 {
-    public static void largeGroupPositions(String s) {
+    public static List<List<Integer>> largeGroupPositions(String s) {
 
+        List<List<Integer>> result = new ArrayList<>();
+
+        int start = 0;
+        char startVal = s.charAt(0);
+        int end = 0;
+
+        for (int i = 1; i < s.length(); i++) {
+
+            if ((end - start )>=3 && s.charAt(i) != startVal){
+                result.add(Arrays.asList(start, end));
+            }
+
+            if (s.charAt(i) == startVal){
+                end++;
+            }else {
+                start = i;
+                startVal = s.charAt(i);
+                end = i;
+            }
+        }
+
+        return result;
 
     }
 
