@@ -69,5 +69,4 @@ public abstract class Pool {
 
     public abstract int getNumActive();
 
-
 }
