@@ -12,23 +12,14 @@ package thread;
 public class LamdaTest {
 
     public static void main(String[] args) {
-        LamdaTest l = new LamdaTest();
-        l.test1();
+        testIf t = (a)-> System.out.println(a);
+        t.test(10);
     }
 
-    void test1(){
-        T1 t = ()-> System.out.println("123");
-    }
-    interface T1{
-        void test();
-    }
 
-    class T1a implements T1{
 
-        @Override
-        public void test() {
-            System.out.println("test");
-        }
+    interface testIf{
+        void test(int a);
     }
 }
 
