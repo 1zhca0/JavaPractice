@@ -13,40 +13,61 @@ import lombok.SneakyThrows;
  */
 public class ThreadL4_Syconized {
 
-    public static void main(String[] args) {
-        BuyTicket station = new BuyTicket();
-
-        new Thread(station, "1").start();
-        new Thread(station, "2").start();
-        new Thread(station, "3").start();
-
-
-    }
-
-
-}
-
-class BuyTicket implements Runnable{
-
-    private int ticketNum = 20;
-    private boolean flag = true;
-
-    @Override
-    public void run() {
-        while (flag){
-            buy();
-        }
-    }
+    private static volatile Object resourceA = new Object();
+    private static volatile Object resourceB = new Object();
 
     @SneakyThrows
-    void buy(){
-        if (ticketNum < 0){
-            flag = false;
-            return;
-        }
+    public static void main(String[] args) {
 
-        Thread.sleep(100);
+        Thread threadA = new Thread(new Runnable() {
 
-        System.out.println(Thread.currentThread().getName() + " buy ticket " + ticketNum--);
+            @Override
+            @SneakyThrows(InterruptedException.class)
+            public void run() {
+                synchronized (resourceA) {
+                    System.out.println("threadA get resourceA");
+                    resourceA.wait();
+//                    synchronized (resourceB) {
+//                        System.out.println("threadA get resourceB lock");
+//                        System.out.println("threadA release resourceA lock");
+//
+//                        // 程序执行了 同步对象 wait 方法 ，当前线程暂停，释放锁
+//
+//                        resourceB.wait();
+//
+//                    }
+                }
+            }
+        });
+
+        Thread threadB = new Thread(new Runnable() {
+
+            @Override
+            @SneakyThrows(InterruptedException.class)
+            public void run() {
+                Thread.sleep(1000);
+                synchronized (resourceA) {
+                    System.out.println("threadB get resourceA");
+                    System.out.println("threadB trying to get resourceB lock...");
+                    resourceA.wait();
+
+//                    synchronized (resourceB) {
+//                        System.out.println("threadB get resourceB lock");
+//                        System.out.println("threadB release resourceA lock");
+//
+//                    }
+                }
+            }
+        });
+
+        threadA.start();
+        threadB.start();
+
+        threadA.join();
+        threadB.join();
+
+        System.out.println("main over");
     }
+
+
 }
