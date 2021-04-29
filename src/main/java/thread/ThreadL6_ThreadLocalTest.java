@@ -13,32 +13,36 @@ import lombok.SneakyThrows;
  */
 public class ThreadL6_ThreadLocalTest {
 
-    private static volatile Object resourceA = new Object();
-    private static volatile Object resourceB = new Object();
-    private ThreadLocal<String> test = new ThreadLocal<>();
+    private static ThreadLocal<String> localVarible = new ThreadLocal<>();
 
-    @SneakyThrows
     public static void main(String[] args) {
+        Thread threadOne = new Thread(
+                ()->{
+                    localVarible.set("threadOne local variable");
+//                    print("threadOne");
+                    System.out.println("threadOne remove after: " + localVarible.get());
+                }
+        );
 
-        Thread threadA = new Thread(new Runnable() {
+        Thread threadTwo = new Thread(
+                ()->{
+                    localVarible.set("threadTwo local variable");
+                    localVarible.remove();
+                    System.out.println("threadTwo remove after: " + localVarible.get());
+                }
+        );
 
-            @SneakyThrows
-            @Override
-            public void run() {
-                Thread.sleep(1000000);
-            }
-        });
+        Thread thread3 = new Thread(
+                ()->{
+                    localVarible.set("thread3 local variable");
+                    System.out.println("thread3 remove after: " + localVarible.get());
+                }
+        );
 
-        threadA.start();
-        System.out.println("主线程继续");
-        Thread.sleep(1000);
-        threadA.interrupt();
-        System.out.println(threadA.isAlive());
-        System.out.println(threadA.isInterrupted());
-        threadA.join();
-        System.out.println(threadA.isAlive());
-        System.out.println(threadA.isInterrupted());
-        System.out.println("all finined");
+        threadOne.start();
+        threadTwo.start();
+        thread3.start();
+
     }
 
 
