@@ -11,7 +11,7 @@ import lombok.SneakyThrows;
  * @Date: 2021/4/26 15:51
  * @Version: 1.0
  */
-public class ThreadL5_Syconized {
+public class ThreadL6_ThreadLocalTest {
 
     private static volatile Object resourceA = new Object();
     private static volatile Object resourceB = new Object();
