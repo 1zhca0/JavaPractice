@@ -35,6 +35,20 @@ public class L1 {
         return "[" + result.substring(0, result.length() - 2) + "]";
     }
 
+    public static ListNode stringToListNode(String input) {
+        // Generate array from the input
+        int[] nodeValues = stringToIntegerArray(input);
+
+        // Now convert that list into linked list
+        ListNode dummyRoot = new ListNode(0);
+        ListNode ptr = dummyRoot;
+        for(int item : nodeValues) {
+            ptr.next = new ListNode(item);
+            ptr = ptr.next;
+        }
+        return dummyRoot.next;
+    }
+
     public static String integerArrayToString(int[] nums) {
         return integerArrayToString(nums, nums.length);
     }
