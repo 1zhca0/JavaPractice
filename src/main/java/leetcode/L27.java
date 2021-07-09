@@ -4,8 +4,17 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 
+/**
+ * @ProjectName: JavaPractice
+ * @Package: leetcode
+ * @ClassName: L27
+ * @Author: Frank.Cao
+ * @Description:
+ * @Date: 2021/7/8 9:49
+ * @Version: 1.0
+ */
+public class L27 {
 
-public class L1 {
     public static int[] stringToIntegerArray(String input) {
         input = input.trim();
         input = input.substring(1, input.length() - 1);
@@ -35,44 +44,32 @@ public class L1 {
         return "[" + result.substring(0, result.length() - 2) + "]";
     }
 
-    public static ListNode stringToListNode(String input) {
-        // Generate array from the input
-        int[] nodeValues = stringToIntegerArray(input);
-
-        // Now convert that list into linked list
-        ListNode dummyRoot = new ListNode(0);
-        ListNode ptr = dummyRoot;
-        for(int item : nodeValues) {
-            ptr.next = new ListNode(item);
-            ptr = ptr.next;
-        }
-        return dummyRoot.next;
-    }
-
     public static String integerArrayToString(int[] nums) {
         return integerArrayToString(nums, nums.length);
     }
 
     public static void main(String[] args) throws IOException {
-        BufferedReader in = new BufferedReader(new InputStreamReader(System.in));
-        String line;
-        System.out.println("start");
-        while ((line = in.readLine()) != null) {
-            int[] nums = stringToIntegerArray(line);
-            line = in.readLine();
-            int target = Integer.parseInt(line);
+        int[] nums = stringToIntegerArray("[3,2,2,3,6,7,4,3,2,2,1,1]");
+        int val = 3;
 
-            int[] ret = new Solution1().twoSum(nums, target);
-            System.out.println("int");
-            String out = integerArrayToString(ret);
+        int ret = new Solution().removeElement(nums, val);
+        String out = integerArrayToString(nums, ret);
 
-            System.out.print(out);
+        System.out.print(out);
+    }
+}
+
+class Solution {
+    public int removeElement(int[] nums, int val) {
+
+        int k = 0;
+        for(int i=0;i<nums.length;i++)
+        {
+            if(nums[i] != val) {
+                nums[k++] = nums[i];
+            }
         }
+        return k;
     }
 }
 
-class Solution1 {
-    public int[] twoSum(int[] nums, int target) {
-        return new int[]{1,2};
-    }
-}
